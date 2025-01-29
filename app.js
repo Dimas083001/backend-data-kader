@@ -16,13 +16,14 @@ app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'self'; " +
-    "img-src 'self' https://backend-data-kader.vercel.app data:; " +
+    "img-src 'self' https://backend-data-kader.vercel.app data: blob:; " +
     "connect-src 'self' https://backend-data-kader.vercel.app; " +
     "script-src 'self' 'unsafe-inline'; " +
     "style-src 'self' 'unsafe-inline';"
   );
   next();
 });
+
 
 // Middleware untuk favicon
 app.use('/favicon.ico', express.static(path.join(__dirname, 'public/favicon.ico')));
