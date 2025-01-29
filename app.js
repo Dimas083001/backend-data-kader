@@ -1,30 +1,26 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const path = require("path");
-require("dotenv").config(); // Load environment variables
-
-const login = require("./routes/login");
-const dataKader = require("./routes/dataKader");
-const sebaranWilayah = require("./routes/sebaranWilayah");
-const laporan = require("./routes/laporan");
-const tambahAkun = require("./routes/tambahAkun");
-const dashboard = require("./routes/dashboard");
-const profil = require("./routes/profil");
-const kta = require("./routes/kta");
-
+const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
+const login = require('./routes/login')
+const dataKader= require('./routes/dataKader')
+const sebaranWilayah= require('./routes/sebaranWilayah')
+const laporan = require('./routes/laporan')
+const tambahAkun = require('./routes/tambahAkun')
+const dashboard = require('./routes/dashboard')
+const profil = require('./routes/profil')
+const kta = require('./routes/kta')
+const path = require('path');
 
+
+// Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json()); // Middleware untuk mengurai JSON body dari request
 app.use(cors());
-
-// Static file handling (optional)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Register routes
 app.use( login)
 app.use( dataKader)
 app.use( sebaranWilayah)
