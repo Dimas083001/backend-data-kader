@@ -1,5 +1,3 @@
-
-// Import required modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -16,6 +14,14 @@ const path = require('path');
 
 
 // Middleware setup
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; img-src 'self' data: https://backend-data-kader.vercel.app"
+  );
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); // Middleware untuk mengurai JSON body dari request
@@ -32,9 +38,13 @@ app.use ( dashboard)
 app.use ( profil)
 app.use ( kta)
 
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
 
-// Start the server
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;

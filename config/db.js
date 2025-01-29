@@ -1,19 +1,20 @@
 const mysql = require("mysql2/promise");
-require("dotenv").config(); // Load environment variables
 
-// Database connection with connection pooling
+// Konfigurasi database langsung (TIDAK DISARANKAN untuk produksi)
 const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  waitForConnections: true, // Tunggu jika koneksi penuh
-  connectionLimit: 10, // Batasi jumlah maksimum koneksi
-  queueLimit: 0, // Tidak ada batasan antrean
+  host: "sql12.freesqldatabase.com",
+  user: "sql12760097",
+  password: "3JPtiLPYVL",
+  database: "sql12760097",
+  port: 3306,
+  waitForConnections: true,
+  connectionLimit: 10,  // Batasi jumlah maksimum koneksi
+  queueLimit: 0,
+  acquireTimeout: 10000, // Timeout saat menunggu koneksi (10 detik)
+  connectTimeout: 10000  // Timeout saat menghubungkan ke database (10 detik)
 });
 
-// Tes koneksi ke database saat server pertama kali berjalan
+// Tes koneksi
 db.getConnection()
   .then((connection) => {
     console.log("✅ Connected to MySQL database");
