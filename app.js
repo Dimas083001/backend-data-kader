@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-const login = require('./routes/login')
+//const login = require('./routes/login')
 const dataKader= require('./routes/dataKader')
 const sebaranWilayah= require('./routes/sebaranWilayah')
 const laporan = require('./routes/laporan')
@@ -29,7 +29,7 @@ app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use( login)
+//app.use( login)
 app.use( dataKader)
 app.use( sebaranWilayah)
 //app.use( tambahAkun)
