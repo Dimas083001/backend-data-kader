@@ -1,62 +1,47 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
 const cors = require('cors');
+const login = require('./routes/login')
+const dataKader= require('./routes/dataKader')
+const sebaranWilayah= require('./routes/sebaranWilayah')
+const laporan = require('./routes/laporan')
+const tambahAkun = require('./routes/tambahAkun')
+const dashboard = require('./routes/dashboard')
+const profil = require('./routes/profil')
+const kta = require('./routes/kta')
 const path = require('path');
 
-const app = express();
 
-// Middleware dasar
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-
-// Middleware untuk Content Security Policy
+// Middleware setup
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; " +
-    "img-src 'self' https://backend-data-kader.vercel.app data:; " +
-    "connect-src 'self' https://backend-data-kader.vercel.app; " +
-    "script-src 'self' 'unsafe-inline'; " +
-    "style-src 'self' 'unsafe-inline';"
+    "default-src 'self'; img-src 'self' data: https://backend-data-kader.vercel.app"
   );
   next();
 });
 
-// Middleware untuk favicon
-app.use('/favicon.ico', express.static(path.join(__dirname, 'public/favicon.ico')));
-
-// Middleware untuk static files
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // Middleware untuk mengurai JSON body dari request
+app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Import rute API
-const login = require('./routes/login');
-const dataKader = require('./routes/dataKader');
-const sebaranWilayah = require('./routes/sebaranWilayah');
-const laporan = require('./routes/laporan');
-const tambahAkun = require('./routes/tambahAkun');
-const dashboard = require('./routes/dashboard');
-const profil = require('./routes/profil');
-const kta = require('./routes/kta');
+app.use( login)
+app.use( dataKader)
+app.use( sebaranWilayah)
+app.use( tambahAkun)
+app.use( laporan)
+app.use ( dashboard)
+app.use ( profil)
+app.use ( kta)
 
-// Gunakan rute API
-app.use(login);
-app.use(dataKader);
-app.use(sebaranWilayah);
-app.use(tambahAkun);
-app.use(laporan);
-app.use(dashboard);
-app.use(profil);
-app.use(kta);
-
-// Tes API
 app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
-// Port server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
