@@ -19,10 +19,16 @@ app.use((req, res, next) => {
     "img-src 'self' https://backend-data-kader.vercel.app data: blob:; " +
     "connect-src 'self' https://backend-data-kader.vercel.app; " +
     "script-src 'self' 'unsafe-inline'; " +
-    "style-src 'self' 'unsafe-inline';"
+    "style-src 'self' 'unsafe-inline'; " +
+    "object-src 'none'; " +
+    "media-src 'self'; " +
+    "frame-ancestors 'self'; " +
+    "manifest-src 'self'; " +
+    "worker-src 'self';"
   );
   next();
 });
+
 
 // Middleware untuk menangani request favicon.ico agar tidak error di console
 app.get('/favicon.ico', (req, res) => res.status(204).end());
