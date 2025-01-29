@@ -1,33 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
 const cors = require('cors');
-const login = require('./routes/login')
-const dataKader= require('./routes/dataKader')
-const sebaranWilayah= require('./routes/sebaranWilayah')
-const laporan = require('./routes/laporan')
-const tambahAkun = require('./routes/tambahAkun')
-const dashboard = require('./routes/dashboard')
-const profil = require('./routes/profil')
-const kta = require('./routes/kta')
 const path = require('path');
+const favicon = require('serve-favicon');
 
+const app = express();
 
-// Middleware setup
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; img-src 'self' data: https://backend-data-kader.vercel.app"
-  );
-  next();
-});
+// Import routes
+const login = require('./routes/login');
+const dataKader = require('./routes/dataKader');
+const sebaranWilayah = require('./routes/sebaranWilayah');
+const laporan = require('./routes/laporan');
+const tambahAkun = require('./routes/tambahAkun');
+const dashboard = require('./routes/dashboard');
+const profil = require('./routes/profil');
+const kta = require('./routes/kta');
 
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json()); // Middleware untuk mengurai JSON body dari request
+app.use(express.json());
 app.use(cors());
+
+// Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// ✅ Mengizinkan favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use( login)
 app.use( dataKader)
