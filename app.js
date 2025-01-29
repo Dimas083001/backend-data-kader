@@ -20,20 +20,22 @@ app.use((req, res, next) => {
     "connect-src 'self' https://backend-data-kader.vercel.app; " +
     "script-src 'self' 'unsafe-inline'; " +
     "style-src 'self' 'unsafe-inline'; " +
-    "object-src 'none'; " +
     "media-src 'self'; " +
     "frame-ancestors 'self'; " +
     "manifest-src 'self'; " +
-    "worker-src 'self';"
+    "worker-src 'self'; " +
+    "object-src 'none';"
   );
   next();
 });
+
 
 // Middleware untuk menangani request favicon.ico agar tidak error di console
 app.get('/favicon.ico', (req, res) => {
   res.setHeader("Content-Type", "image/x-icon");
   res.status(204).end(); // No Content, browser tidak akan mencoba lagi
 });
+
 
 // Middleware untuk static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
