@@ -29,19 +29,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ✅ Mengizinkan favicon
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-app.use( login)
-app.use( dataKader)
-app.use( sebaranWilayah)
-app.use( tambahAkun)
-app.use( laporan)
-app.use ( dashboard)
-app.use ( profil)
-app.use ( kta)
+// ✅ Alternatif jika tidak ingin menggunakan favicon (mengabaikan request)
+app.get('/favicon.ico', (req, res) => res.status(204));
 
+// Register API routes dengan prefix "/api"
+app.use("/api/login", login);
+app.use("/api/dataKader", dataKader);
+app.use("/api/sebaranWilayah", sebaranWilayah);
+app.use("/api/tambahAkun", tambahAkun);
+app.use("/api/laporan", laporan);
+app.use("/api/dashboard", dashboard);
+app.use("/api/profil", profil);
+app.use("/api/kta", kta);
+
+// Default route
 app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
+// Start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
