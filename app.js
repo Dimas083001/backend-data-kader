@@ -29,9 +29,11 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Middleware untuk menangani request favicon.ico agar tidak error di console
-app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/favicon.ico', (req, res) => {
+  res.setHeader("Content-Type", "image/x-icon");
+  res.status(204).end(); // No Content, browser tidak akan mencoba lagi
+});
 
 // Middleware untuk static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -48,14 +50,14 @@ const profil = require('./routes/profil');
 const kta = require('./routes/kta');
 
 // Gunakan rute API
-app.use( login);
-app.use( dataKader);
-app.use( sebaranWilayah);
-app.use( tambahAkun);
-app.use( laporan);
-app.use( dashboard);
-app.use( profil);
-app.use( kta);
+app.use(login);
+app.use(dataKader);
+app.use(sebaranWilayah);
+app.use(tambahAkun);
+app.use(laporan);
+app.use(dashboard);
+app.use(profil);
+app.use(kta);
 
 // Tes API
 app.get("/", (req, res) => {
