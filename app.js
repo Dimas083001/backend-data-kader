@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'self'; " +
-    "img-src 'self' data: https://backend-data-kader.vercel.app https://backend-data-kader.vercel.app/favicon.ico; " +
+    "img-src * data: blob:; " +
     "connect-src 'self'; " +
     "script-src 'self'; " +
     "style-src 'self' 'unsafe-inline'; " +
@@ -46,20 +46,22 @@ app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Routes
+app.use(login);
+app.use(dataKader);
+app.use(sebaranWilayah);
+app.use(tambahAkun);
+app.use(laporan);
+app.use(dashboard);
+app.use(profil);
+app.use(kta);
 
-app.use( login)
-app.use( dataKader)
-app.use( sebaranWilayah)
-app.use( tambahAkun)
-app.use( laporan)
-app.use ( dashboard)
-app.use ( profil)
-app.use ( kta)
-
+// Route utama
 app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
+// Server configuration
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
