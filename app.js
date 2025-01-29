@@ -5,13 +5,10 @@ const path = require('path');
 require('dotenv').config(); // Load environment variables
 
 // Import routes
-// const login = require('./routes/login');
+const checkDb = require('./routes/checkDb');
 const dataKader = require('./routes/dataKader');
 const sebaranWilayah = require('./routes/sebaranWilayah');
 const laporan = require('./routes/laporan');
-// const tambahAkun = require('./routes/tambahAkun');
-// const dashboard = require('./routes/dashboard');
-// const profil = require('./routes/profil');
 const kta = require('./routes/kta');
 
 const app = express();
@@ -27,15 +24,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Register routes dengan prefix yang benar
-app.use(checkDb);
-// app.use(login);
-app.use(dataKader);
-app.use(sebaranWilayah);
-// app.use(tambahAkun);
-app.use(laporan);
-// app.use(dashboard);
-// app.use(profil);
-app.use(kta);
+app.use('/checkDb', checkDb);
+app.use('/dataKader', dataKader);
+app.use('/sebaranWilayah', sebaranWilayah);
+app.use('/laporan', laporan);
+app.use('/kta', kta);
 
 // Route utama
 app.get('/', (req, res) => {
@@ -49,4 +42,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
