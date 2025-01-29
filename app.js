@@ -42,14 +42,14 @@ const profil = require('./routes/profil');
 const kta = require('./routes/kta');
 
 // Gunakan rute API
-app.use(login);
-app.use(dataKader);
-app.use(sebaranWilayah);
-app.use(tambahAkun);
-app.use(laporan);
-app.use(dashboard);
-app.use(profil);
-app.use(kta);
+app.use( login);
+app.use( dataKader);
+app.use( sebaranWilayah);
+app.use( tambahAkun);
+app.use( laporan);
+app.use( dashboard);
+app.use( profil);
+app.use( kta);
 
 // Tes API
 app.get("/", (req, res) => {
