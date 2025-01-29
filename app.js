@@ -34,6 +34,8 @@ app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
+app.get('/favicon.ico', (req, res) => res.status(204));
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
