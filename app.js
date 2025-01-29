@@ -25,14 +25,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Register routes
-app.use('/api/login', login);
-app.use('/api/dataKader', dataKader);
-app.use('/api/sebaranWilayah', sebaranWilayah);
-app.use('/api/tambahAkun', tambahAkun);
-app.use('/api/laporan', laporan);
-app.use('/api/dashboard', dashboard);
-app.use('/api/profil', profil);
-app.use('/api/kta', kta);
+app.use( login)
+app.use( dataKader)
+app.use( sebaranWilayah)
+app.use( tambahAkun)
+app.use( laporan)
+app.use ( dashboard)
+app.use ( profil)
+app.use ( kta)
 
 app.get("/", (req, res) => {
   res.send("API is running!");
