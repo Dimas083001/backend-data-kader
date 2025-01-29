@@ -32,6 +32,7 @@
     "express-validator": "^7.1.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "helmet": "^8.0.0",
     "html2canvas": "^1.4.1",
     "hyper-express": "^6.16.2",
     "jsonwebtoken": "^9.0.2",
