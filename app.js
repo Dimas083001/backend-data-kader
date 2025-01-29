@@ -24,10 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Middleware untuk favicon
-app.use('/favicon.ico', express.static(path.join(__dirname, 'public/favicon.ico')));
-
 // Middleware untuk static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
