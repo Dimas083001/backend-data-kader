@@ -1,42 +1,39 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config(); // Load environment variables
-
-// Import routes
-const checkDb = require('./routes/checkDb');
-const dataKader = require('./routes/dataKader');
-const sebaranWilayah = require('./routes/sebaranWilayah');
-const laporan = require('./routes/laporan');
-const kta = require('./routes/kta');
-
 const app = express();
+const cors = require('cors');
+const login = require('./routes/login')
+const dataKader= require('./routes/dataKader')
+const sebaranWilayah= require('./routes/sebaranWilayah')
+const laporan = require('./routes/laporan')
+const tambahAkun = require('./routes/tambahAkun')
+const dashboard = require('./routes/dashboard')
+const profil = require('./routes/profil')
+const kta = require('./routes/kta')
+const path = require('path');
 
-// Middleware setup
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); // Middleware untuk mengurai JSON body dari request
 app.use(cors());
-
-// Menyajikan file statis
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Register routes dengan prefix yang benar
-app.use('/checkDb', checkDb);
-app.use('/dataKader', dataKader);
-app.use('/sebaranWilayah', sebaranWilayah);
-app.use('/laporan', laporan);
-app.use('/kta', kta);
+app.use( login)
+app.use( dataKader)
+app.use( sebaranWilayah)
+app.use( tambahAkun)
+app.use( laporan)
+app.use ( dashboard)
+app.use ( profil)
+app.use ( kta)
 
-// Route utama
-app.get('/', (req, res) => {
-  res.send('API is running!');
+app.get("/", (req, res) => {
+  res.send("API is running!");
 });
 
-// Jalankan server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
