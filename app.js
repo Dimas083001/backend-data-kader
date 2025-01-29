@@ -17,11 +17,10 @@ const path = require('path');
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; img-src 'self' https://backend-data-kader.vercel.app data:; connect-src 'self' https://backend-data-kader.vercel.app"
+    "default-src 'self'; img-src 'self' data: https://backend-data-kader.vercel.app"
   );
   next();
 });
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
