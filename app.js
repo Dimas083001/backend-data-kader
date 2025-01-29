@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet'); // Import Helmet
 
 // Import routes
 const login = require('./routes/login');
@@ -15,31 +16,30 @@ const kta = require('./routes/kta');
 
 const app = express();
 
-// Middleware Content Security Policy (CSP) untuk keamanan
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; " +
-    "img-src * data: blob:; " +
-    "connect-src 'self'; " +
-    "script-src 'self'; " +
-    "style-src 'self' 'unsafe-inline'; " +
-    "font-src 'self'; " +
-    "object-src 'none'; " +
-    "frame-ancestors 'none'; " +
-    "base-uri 'self'; " +
-    "form-action 'self'; " +
-    "manifest-src 'self'; " +
-    "media-src 'self'; " +
-    "worker-src 'self';"
-  );
-  next();
-});
+// Middleware Helmet dengan konfigurasi CSP agar favicon bisa dimuat
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://backend-data-kader.vercel.app"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        fontSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+      },
+    },
+  })
+);
 
 // Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json()); // Middleware untuk mengurai JSON body dari request
+app.use(express.json());
 app.use(cors());
 
 // Menyajikan file statis, termasuk favicon
