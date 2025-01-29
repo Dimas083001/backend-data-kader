@@ -24,6 +24,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Middleware untuk menangani request favicon.ico agar tidak error di console
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 // Middleware untuk static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
