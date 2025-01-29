@@ -2,11 +2,12 @@ const mysql = require("mysql2/promise");
 
 // Konfigurasi database langsung (TIDAK DISARANKAN untuk produksi)
 const db = mysql.createPool({
-  host: "sql12.freesqldatabase.com",
-  user: "sql12760097",
-  password: "3JPtiLPYVL",
-  database: "sql12760097",
+  host: "api.sidak2025.lampungsehat.org",
+  user: "lampungsehat_sidak2025",
+  password: "us6Oo#GRtd+s",
+  database: "lampungsehat_sidak2025",
   port: 3306,
+
   waitForConnections: true,
   connectionLimit: 10,  // Batasi jumlah maksimum koneksi
   queueLimit: 0,
